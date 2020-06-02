@@ -32,6 +32,8 @@ public class PointLight {
 
 	private List<ShaderProgram> programs;
 
+	private Function<Boolean, Integer> bti;
+
 	public PointLight() {
 		enabled = true;
 
@@ -46,6 +48,13 @@ public class PointLight {
 		color_clamp_max = 1.0f;
 
 		programs = new ArrayList<>();
+
+		bti = b -> {
+			if (b == false)
+				return 0;
+			else
+				return 1;
+		};
 	}
 
 	public boolean IsEnabled() {
@@ -108,13 +117,6 @@ public class PointLight {
 
 	public void Update(int index) {
 		String element_name = "lights" + "[" + index + "]";
-
-		Function<Boolean, Integer> bti = b -> {
-			if (b == false)
-				return 0;
-			else
-				return 1;
-		};
 
 		for (var program : programs) {
 			program.Enable();
