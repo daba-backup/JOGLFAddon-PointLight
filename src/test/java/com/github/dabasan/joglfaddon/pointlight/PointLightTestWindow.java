@@ -17,7 +17,7 @@ class PointLightTestWindow extends JOGLFWindow {
 
 		Random random = new Random();
 
-		int point_light_handle = PointLightMgr.CreatePointLight(ShadingMethod.PHONG);
+		int point_light_handle = PointLightMgr.CreatePointLight(PointLightShadingMethod.PHONG);
 		float r = random.nextFloat();
 		float g = random.nextFloat();
 		float b = random.nextFloat();

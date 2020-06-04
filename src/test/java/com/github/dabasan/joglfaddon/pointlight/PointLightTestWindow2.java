@@ -60,7 +60,7 @@ class PointLightTestWindow2 extends JOGLFWindow {
 		camera.Update();
 
 		if (this.GetKeyboardPressingCount(KeyboardEnum.KEY_ENTER) == 1) {
-			int point_light_handle = PointLightMgr.CreatePointLight(ShadingMethod.GOURAUD);
+			int point_light_handle = PointLightMgr.CreatePointLight(PointLightShadingMethod.GOURAUD);
 
 			Vector position = camera.GetPosition();
 			float r = random.nextFloat();

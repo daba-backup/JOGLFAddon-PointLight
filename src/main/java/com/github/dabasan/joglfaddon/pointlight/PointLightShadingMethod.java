@@ -1,11 +1,11 @@
 package com.github.dabasan.joglfaddon.pointlight;
 
 /**
- * Shading methods for spotlighting
+ * Shading method
  * 
  * @author Daba
  *
  */
-public enum ShadingMethod {
+public enum PointLightShadingMethod {
 	GOURAUD, PHONG
 }

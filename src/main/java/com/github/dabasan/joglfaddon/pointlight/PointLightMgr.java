@@ -42,7 +42,7 @@ public class PointLightMgr {
 		logger.info("PointLightMgr initialized.");
 	}
 
-	public static int CreatePointLight(ShadingMethod method) {
+	public static int CreatePointLight(PointLightShadingMethod method) {
 		if (lights_map.size() > MAX_POINT_LIGHT_NUM) {
 			logger.warn("No more point lights can be created.");
 			return -1;
@@ -51,7 +51,7 @@ public class PointLightMgr {
 		int light_handle = count;
 
 		PointLight light = new PointLight();
-		if (method == ShadingMethod.GOURAUD) {
+		if (method == PointLightShadingMethod.GOURAUD) {
 			light.AddProgram(gouraud_program);
 		} else {
 			light.AddProgram(phong_program);
