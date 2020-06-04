@@ -18,16 +18,16 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
  *
  */
 public class PointLightMgr {
-	private static Logger logger = LoggerFactory.getLogger(PointLightMgr.class);
-	public static final int MAX_POINT_LIGHT_NUM = 256;
+	private Logger logger = LoggerFactory.getLogger(PointLightMgr.class);
+	public final int MAX_POINT_LIGHT_NUM = 256;
 
-	private static int count = 0;
-	private static Map<Integer, PointLight> lights_map = new HashMap<>();
+	private int count = 0;
+	private Map<Integer, PointLight> lights_map = new HashMap<>();
 
-	private static ShaderProgram gouraud_program;
-	private static ShaderProgram phong_program;
+	private ShaderProgram gouraud_program;
+	private ShaderProgram phong_program;
 
-	public static void Initialize() {
+	public PointLightMgr() {
 		gouraud_program = new ShaderProgram("dabasan/point_light/gouraud",
 				"./Data/Shader/330/addon/dabasan/point_light/gouraud/vshader.glsl",
 				"./Data/Shader/330/addon/dabasan/point_light/gouraud/fshader.glsl");
@@ -38,11 +38,14 @@ public class PointLightMgr {
 		CameraFront.AddProgram(phong_program);
 
 		SetColorSumClamp(0.0f, 1.0f);
-
-		logger.info("PointLightMgr initialized.");
 	}
 
-	public static int CreatePointLight(PointLightShadingMethod method) {
+	public void Dispose() {
+		CameraFront.RemoveProgram(gouraud_program);
+		CameraFront.RemoveProgram(phong_program);
+	}
+
+	public int CreatePointLight(PointLightShadingMethod method) {
 		if (lights_map.size() > MAX_POINT_LIGHT_NUM) {
 			logger.warn("No more point lights can be created.");
 			return -1;
@@ -69,7 +72,7 @@ public class PointLightMgr {
 
 		return light_handle;
 	}
-	public static int DeletePointLight(int point_light_handle) {
+	public int DeletePointLight(int point_light_handle) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -86,7 +89,7 @@ public class PointLightMgr {
 
 		return 0;
 	}
-	public static void DeleteAllPointLights() {
+	public void DeleteAllPointLights() {
 		lights_map.clear();
 		count = 0;
 
@@ -98,7 +101,7 @@ public class PointLightMgr {
 		phong_program.Disable();
 	}
 
-	public static int AddProgram(int point_light_handle, ShaderProgram program) {
+	public int AddProgram(int point_light_handle, ShaderProgram program) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -109,7 +112,7 @@ public class PointLightMgr {
 
 		return 0;
 	}
-	public static int RemoveAllPrograms(int point_light_handle) {
+	public int RemoveAllPrograms(int point_light_handle) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -121,7 +124,7 @@ public class PointLightMgr {
 		return 0;
 	}
 
-	public static int SetPosition(int point_light_handle, Vector position) {
+	public int SetPosition(int point_light_handle, Vector position) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -132,7 +135,7 @@ public class PointLightMgr {
 
 		return 0;
 	}
-	public static int SetK(int point_light_handle, float k0, float k1, float k2) {
+	public int SetK(int point_light_handle, float k0, float k1, float k2) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -143,7 +146,7 @@ public class PointLightMgr {
 
 		return 0;
 	}
-	public static int SetDiffuseColor(int point_light_handle, ColorU8 diffuse_color) {
+	public int SetDiffuseColor(int point_light_handle, ColorU8 diffuse_color) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -154,7 +157,7 @@ public class PointLightMgr {
 
 		return 0;
 	}
-	public static int SetDiffusePower(int point_light_handle, float diffuse_power) {
+	public int SetDiffusePower(int point_light_handle, float diffuse_power) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -165,7 +168,7 @@ public class PointLightMgr {
 
 		return 0;
 	}
-	public static int SetColorClamp(int point_light_handle, float min, float max) {
+	public int SetColorClamp(int point_light_handle, float min, float max) {
 		if (lights_map.containsKey(point_light_handle) == false) {
 			logger.trace("No such point light. point_light_handle={}", point_light_handle);
 			return -1;
@@ -177,7 +180,7 @@ public class PointLightMgr {
 		return 0;
 	}
 
-	public static void SetColorSumClamp(float min, float max) {
+	public void SetColorSumClamp(float min, float max) {
 		gouraud_program.Enable();
 		gouraud_program.SetUniform("point_light_color_sum_clamp_min", min);
 		gouraud_program.SetUniform("point_light_color_sum_clamp_max", max);
@@ -188,7 +191,7 @@ public class PointLightMgr {
 		phong_program.Disable();
 	}
 
-	public static void Update() {
+	public void Update() {
 		int index = 0;
 		for (var light : lights_map.values()) {
 			light.Update(index);

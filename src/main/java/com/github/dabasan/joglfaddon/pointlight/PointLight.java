@@ -17,7 +17,7 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
  * @author Daba
  *
  */
-public class PointLight {
+class PointLight {
 	private boolean enabled;
 
 	private Vector position;
@@ -110,6 +110,9 @@ public class PointLight {
 
 	public void AddProgram(ShaderProgram program) {
 		programs.add(program);
+	}
+	public void RemoveProgram(ShaderProgram program) {
+		programs.remove(program);
 	}
 	public void RemoveAllPrograms() {
 		programs.clear();

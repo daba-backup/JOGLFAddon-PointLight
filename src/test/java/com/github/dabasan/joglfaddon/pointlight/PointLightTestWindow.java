@@ -9,19 +9,20 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
 import com.github.dabasan.joglf.gl.window.JOGLFWindow;
 
 class PointLightTestWindow extends JOGLFWindow {
+	private PointLightMgr point_light_mgr;
 	private int plane_handle;
 
 	@Override
 	public void Init() {
-		PointLightMgr.Initialize();
+		point_light_mgr = new PointLightMgr();
 
 		Random random = new Random();
 
-		int point_light_handle = PointLightMgr.CreatePointLight(PointLightShadingMethod.PHONG);
+		int point_light_handle = point_light_mgr.CreatePointLight(PointLightShadingMethod.PHONG);
 		float r = random.nextFloat();
 		float g = random.nextFloat();
 		float b = random.nextFloat();
-		PointLightMgr.SetDiffuseColor(point_light_handle, GetColorU8(r, g, b, 1.0f));
+		point_light_mgr.SetDiffuseColor(point_light_handle, GetColorU8(r, g, b, 1.0f));
 
 		plane_handle = Model3DFunctions.LoadModel("./Data/Model/OBJ/Plane/plane.obj");
 		Model3DFunctions.RemoveAllPrograms(plane_handle);
@@ -29,9 +30,13 @@ class PointLightTestWindow extends JOGLFWindow {
 	}
 
 	@Override
-	public void Update() {
-		PointLightMgr.Update();
+	public void Dispose() {
+		point_light_mgr.Dispose();
+	}
 
+	@Override
+	public void Update() {
+		point_light_mgr.Update();
 	}
 
 	@Override
