@@ -5,7 +5,7 @@ public class TestMain {
 		new TestMain();
 	}
 	public TestMain() {
-		var window = new PointLightTestWindow2();
+		final var window = new PointLightTestWindow();
 		window.SetTitle("Point Light");
 	}
 }

@@ -50,10 +50,11 @@ class PointLight {
 		programs = new ArrayList<>();
 
 		bti = b -> {
-			if (b == false)
+			if (b == false) {
 				return 0;
-			else
+			} else {
 				return 1;
+			}
 		};
 	}
 
@@ -119,9 +120,9 @@ class PointLight {
 	}
 
 	public void Update(int index) {
-		String element_name = "lights" + "[" + index + "]";
+		final String element_name = "lights" + "[" + index + "]";
 
-		for (var program : programs) {
+		for (final var program : programs) {
 			program.Enable();
 			program.SetUniform(element_name + ".enabled", bti.apply(enabled));
 			program.SetUniform(element_name + ".position", position);

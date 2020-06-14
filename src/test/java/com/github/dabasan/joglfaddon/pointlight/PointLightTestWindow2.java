@@ -42,10 +42,10 @@ class PointLightTestWindow2 extends JOGLFWindow {
 
 	@Override
 	public void Update() {
-		int front = this.GetKeyboardPressingCount(KeyboardEnum.KEY_W);
-		int back = this.GetKeyboardPressingCount(KeyboardEnum.KEY_S);
-		int right = this.GetKeyboardPressingCount(KeyboardEnum.KEY_D);
-		int left = this.GetKeyboardPressingCount(KeyboardEnum.KEY_A);
+		final int front = this.GetKeyboardPressingCount(KeyboardEnum.KEY_W);
+		final int back = this.GetKeyboardPressingCount(KeyboardEnum.KEY_S);
+		final int right = this.GetKeyboardPressingCount(KeyboardEnum.KEY_D);
+		final int left = this.GetKeyboardPressingCount(KeyboardEnum.KEY_A);
 
 		int diff_x;
 		int diff_y;
@@ -62,13 +62,13 @@ class PointLightTestWindow2 extends JOGLFWindow {
 		camera.Update();
 
 		if (this.GetKeyboardPressingCount(KeyboardEnum.KEY_ENTER) == 1) {
-			int point_light_handle = point_light_mgr
+			final int point_light_handle = point_light_mgr
 					.CreatePointLight(PointLightShadingMethod.GOURAUD);
 
-			Vector position = camera.GetPosition();
-			float r = random.nextFloat();
-			float g = random.nextFloat();
-			float b = random.nextFloat();
+			final Vector position = camera.GetPosition();
+			final float r = random.nextFloat();
+			final float g = random.nextFloat();
+			final float b = random.nextFloat();
 			point_light_mgr.SetPosition(point_light_handle, position);
 			point_light_mgr.SetDiffuseColor(point_light_handle, GetColorU8(r, g, b, 1.0f));
 

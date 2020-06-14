@@ -16,12 +16,13 @@ class PointLightTestWindow extends JOGLFWindow {
 	public void Init() {
 		point_light_mgr = new PointLightMgr();
 
-		Random random = new Random();
+		final Random random = new Random();
 
-		int point_light_handle = point_light_mgr.CreatePointLight(PointLightShadingMethod.PHONG);
-		float r = random.nextFloat();
-		float g = random.nextFloat();
-		float b = random.nextFloat();
+		final int point_light_handle = point_light_mgr
+				.CreatePointLight(PointLightShadingMethod.PHONG);
+		final float r = random.nextFloat();
+		final float g = random.nextFloat();
+		final float b = random.nextFloat();
 		point_light_mgr.SetDiffuseColor(point_light_handle, GetColorU8(r, g, b, 1.0f));
 
 		plane_handle = Model3DFunctions.LoadModel("./Data/Model/OBJ/Plane/plane.obj");

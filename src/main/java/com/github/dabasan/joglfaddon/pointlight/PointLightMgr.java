@@ -18,14 +18,14 @@ import com.github.dabasan.joglf.gl.shader.ShaderProgram;
  *
  */
 public class PointLightMgr {
-	private Logger logger = LoggerFactory.getLogger(PointLightMgr.class);
+	private final Logger logger = LoggerFactory.getLogger(PointLightMgr.class);
 	public final int MAX_POINT_LIGHT_NUM = 256;
 
 	private int count = 0;
-	private Map<Integer, PointLight> lights_map = new HashMap<>();
+	private final Map<Integer, PointLight> lights_map = new HashMap<>();
 
-	private ShaderProgram gouraud_program;
-	private ShaderProgram phong_program;
+	private final ShaderProgram gouraud_program;
+	private final ShaderProgram phong_program;
 
 	public PointLightMgr() {
 		gouraud_program = new ShaderProgram("dabasan/point_light/gouraud",
@@ -51,9 +51,9 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		int light_handle = count;
+		final int light_handle = count;
 
-		PointLight light = new PointLight();
+		final PointLight light = new PointLight();
 		if (method == PointLightShadingMethod.GOURAUD) {
 			light.AddProgram(gouraud_program);
 		} else {
@@ -107,7 +107,7 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		PointLight light = lights_map.get(point_light_handle);
+		final PointLight light = lights_map.get(point_light_handle);
 		light.AddProgram(program);
 
 		return 0;
@@ -118,7 +118,7 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		PointLight light = lights_map.get(point_light_handle);
+		final PointLight light = lights_map.get(point_light_handle);
 		light.RemoveAllPrograms();
 
 		return 0;
@@ -130,7 +130,7 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		PointLight light = lights_map.get(point_light_handle);
+		final PointLight light = lights_map.get(point_light_handle);
 		light.SetPosition(position);
 
 		return 0;
@@ -141,7 +141,7 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		PointLight light = lights_map.get(point_light_handle);
+		final PointLight light = lights_map.get(point_light_handle);
 		light.SetK(k0, k1, k2);
 
 		return 0;
@@ -152,7 +152,7 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		PointLight light = lights_map.get(point_light_handle);
+		final PointLight light = lights_map.get(point_light_handle);
 		light.SetDiffuseColor(diffuse_color);
 
 		return 0;
@@ -163,7 +163,7 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		PointLight light = lights_map.get(point_light_handle);
+		final PointLight light = lights_map.get(point_light_handle);
 		light.SetDiffusePower(diffuse_power);
 
 		return 0;
@@ -174,7 +174,7 @@ public class PointLightMgr {
 			return -1;
 		}
 
-		PointLight light = lights_map.get(point_light_handle);
+		final PointLight light = lights_map.get(point_light_handle);
 		light.SetColorClamp(min, max);
 
 		return 0;
@@ -193,7 +193,7 @@ public class PointLightMgr {
 
 	public void Update() {
 		int index = 0;
-		for (var light : lights_map.values()) {
+		for (final var light : lights_map.values()) {
 			light.Update(index);
 			index++;
 		}
